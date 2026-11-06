@@ -37,7 +37,7 @@ export const MitreTacticsView: React.FC<MitreTacticsViewProps> = ({ techniques, 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       
       {/* MITRE ATT&CK Panel */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+      <div className="cyber-card reticle-corner rounded-xl p-5 space-y-3">
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
             <Crosshair className="w-4 h-4 text-emerald-400" />
@@ -45,7 +45,7 @@ export const MitreTacticsView: React.FC<MitreTacticsViewProps> = ({ techniques, 
               MITRE ATT&CK MAPPINGS
             </h3>
           </div>
-          <span className="text-xs font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+          <span className="text-xs font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded">
             {techniques.length} Verified
           </span>
         </div>
@@ -59,11 +59,11 @@ export const MitreTacticsView: React.FC<MitreTacticsViewProps> = ({ techniques, 
             {techniques.map((tech, idx) => (
               <div
                 key={`${tech.id}-${tech.provenByFactId || ''}-${idx}`}
-                className="bg-slate-950/70 border border-slate-800 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-xs hover:border-slate-700 transition"
+                className="bg-slate-950/80 border border-slate-800/90 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-xs hover:border-slate-700 transition"
               >
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">
+                    <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded font-bold">
                       {tech.id}
                     </span>
                     <span className="font-semibold text-slate-200">{tech.name}</span>
@@ -74,7 +74,7 @@ export const MitreTacticsView: React.FC<MitreTacticsViewProps> = ({ techniques, 
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[11px] text-emerald-400 font-semibold bg-emerald-950/50 border border-emerald-500/20 px-2 py-0.5 rounded">
+                  <span className="text-[11px] text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded">
                     {tech.confidence}% Confidence
                   </span>
                   <a
@@ -94,7 +94,7 @@ export const MitreTacticsView: React.FC<MitreTacticsViewProps> = ({ techniques, 
       </div>
 
       {/* Extracted IOCs Panel with Instant Search & Copy */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+      <div className="cyber-card reticle-corner rounded-xl p-5 space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
             <Network className="w-4 h-4 text-emerald-400" />

@@ -74,7 +74,7 @@ export const MitreAttackTimeline: React.FC<MitreAttackTimelineProps> = ({
 
   if (techniques.length === 0) {
     return (
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm">
+      <div className="cyber-card reticle-corner rounded-xl p-5">
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
           <Layers className="w-4 h-4 text-emerald-400" />
           <h3 className="text-sm font-semibold text-slate-200 font-mono tracking-wide">
@@ -89,7 +89,7 @@ export const MitreAttackTimeline: React.FC<MitreAttackTimelineProps> = ({
   }
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+    <div className="cyber-card reticle-corner rounded-xl p-5 space-y-4">
       {/* Header and Toggle */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export const MitreAttackTimeline: React.FC<MitreAttackTimelineProps> = ({
           <div>
             <h3 className="text-sm font-semibold text-slate-200 font-mono tracking-wide flex items-center gap-2">
               <span>ATTACK PROGRESSION TIMELINE</span>
-              <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full border border-slate-700">
+              <span className="text-xs bg-slate-800/90 text-slate-300 px-2 py-0.5 rounded border border-slate-700 font-mono">
                 {techniques.length} Stages
               </span>
             </h3>

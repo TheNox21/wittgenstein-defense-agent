@@ -443,7 +443,7 @@ export const SecurityKnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
   };
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+    <div className="cyber-card reticle-corner rounded-xl p-5 space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
@@ -451,7 +451,7 @@ export const SecurityKnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
           <div>
             <h3 className="text-sm font-semibold text-slate-200 font-mono tracking-wide flex items-center gap-2">
               <span>SITUATIONAL KNOWLEDGE GRAPH (D3.JS)</span>
-              <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full border border-slate-700">
+              <span className="text-xs bg-slate-800/90 text-slate-300 px-2 py-0.5 rounded border border-slate-700 font-mono">
                 {filteredData.nodes.length} Entities • {filteredData.links.length} Relations
               </span>
             </h3>
@@ -545,7 +545,7 @@ export const SecurityKnowledgeGraph: React.FC<KnowledgeGraphProps> = ({
       {/* Main Graph SVG Viewport */}
       <div
         ref={containerRef}
-        className="relative w-full h-[480px] bg-slate-950/90 rounded-xl border border-slate-800/90 overflow-hidden select-none"
+        className="relative w-full h-[480px] cyber-grid bg-slate-950/95 rounded-xl border border-slate-800/90 overflow-hidden select-none"
       >
         <svg
           ref={svgRef}

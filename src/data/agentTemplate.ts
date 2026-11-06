@@ -160,7 +160,7 @@ def human_in_the_loop_authorize(action: Dict[str, str]) -> bool:
         return False
 
 def main():
-    parser = argparse.ArgumentParser(description="Wittgenstein AI Defensive Agent (Hackers-Arise Tournament Edition)")
+    parser = argparse.ArgumentParser(description="Wittgenstein AI Defensive Agent (Production SOC Edition)")
     parser.add_argument("--file", "-f", help="Path to telemetry log file")
     parser.add_argument("--interactive", "-i", action="store_true", help="Enable interactive Human-in-the-loop prompts")
     parser.add_argument("--model", "-m", default="local-ollama-llama3", help="Local model backend (e.g. ollama:llama3.1:8b)")

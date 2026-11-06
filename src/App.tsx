@@ -9,10 +9,7 @@ import { SecurityKnowledgeGraph } from './components/SecurityKnowledgeGraph';
 import { ThreatHunterModule } from './components/ThreatHunterModule';
 import { RemediationApprovalQueue } from './components/RemediationApprovalQueue';
 import { ActionAuditTrail } from './components/ActionAuditTrail';
-import { TournamentAuditModal } from './components/TournamentAuditModal';
-import { PythonExportModal } from './components/PythonExportModal';
 import { QuickStartGuideModal } from './components/QuickStartGuideModal';
-import { SubmissionPackageModal } from './components/SubmissionPackageModal';
 import { SAMPLE_TELEMETRY } from './data/sampleLogs';
 import { TriageAnalysis, RemediationAction, SampleTelemetry, AuditTrailEntry } from './types';
 import {
@@ -26,8 +23,7 @@ import {
   History,
   HelpCircle,
   Eye,
-  SlidersHorizontal,
-  FileDown
+  SlidersHorizontal
 } from 'lucide-react';
 
 export default function App() {
@@ -36,10 +32,7 @@ export default function App() {
   const [engineMode, setEngineMode] = useState<'cloud-gemini' | 'local-arm-llama'>('cloud-gemini');
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [analysis, setAnalysis] = useState<TriageAnalysis | null>(null);
-  const [isAuditOpen, setIsAuditOpen] = useState<boolean>(false);
-  const [isExportOpen, setIsExportOpen] = useState<boolean>(false);
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
-  const [isSubmissionOpen, setIsSubmissionOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'all' | 'summary' | 'graph' | 'hunter' | 'remediation'>('all');
   const [isExecutingAction, setIsExecutingAction] = useState<string | null>(null);
   const [isRollingBack, setIsRollingBack] = useState<string | null>(null);
@@ -211,15 +204,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-black">
+    <div className="min-h-screen bg-[#040711] cyber-grid text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-black">
       {/* Top Header */}
       <Header
         engineMode={engineMode}
         onModeChange={handleModeChange}
-        onOpenAudit={() => setIsAuditOpen(true)}
-        onOpenExport={() => setIsExportOpen(true)}
         onOpenGuide={() => setIsGuideOpen(true)}
-        onOpenSubmission={() => setIsSubmissionOpen(true)}
         isAnalyzing={isAnalyzing}
       />
 
@@ -241,7 +231,7 @@ export default function App() {
           <div className="space-y-6">
             
             {/* View Mode Navigation Tabs to reduce cognitive overload */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2 sm:p-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 shadow-sm">
+            <div className="cyber-card rounded-xl p-2 sm:p-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 shadow-sm">
               <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
                 {[
                   { id: 'all', label: 'All Modules', icon: Layers, count: null },
@@ -258,15 +248,15 @@ export default function App() {
                       onClick={() => setActiveTab(tab.id as any)}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition shrink-0 cursor-pointer ${
                         isActive
-                          ? 'bg-emerald-600 text-white font-semibold shadow-sm'
-                          : 'bg-slate-950/60 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700'
+                          ? 'bg-emerald-600/90 text-white font-semibold shadow-[0_0_12px_rgba(16,185,129,0.3)] border border-emerald-400/50'
+                          : 'bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800/80 hover:border-slate-700'
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
                       <span>{tab.label}</span>
                       {tab.count !== null && (
                         <span
-                          className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                          className={`text-[10px] px-1.5 py-0.2 rounded font-mono font-bold ${
                             isActive
                               ? 'bg-emerald-800 text-emerald-100'
                               : 'bg-slate-800 text-slate-400'
@@ -280,25 +270,14 @@ export default function App() {
                 })}
               </div>
 
-              {/* Actions group: Guide & Submission Dossier */}
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  onClick={() => setIsSubmissionOpen(true)}
-                  className="text-xs font-mono text-emerald-300 hover:text-white px-3 py-1.5 rounded-lg bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/40 transition flex items-center justify-center gap-1.5 shrink-0 shadow-sm"
-                  title="Open Official Submission Package (PDF < 5 Pages & Git Scripts)"
-                >
-                  <FileDown className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Submission Dossier</span>
-                </button>
-
-                <button
-                  onClick={() => setIsGuideOpen(true)}
-                  className="text-xs font-mono text-slate-300 hover:text-white px-3 py-1.5 rounded-lg bg-slate-950/80 hover:bg-slate-800 border border-slate-800 transition flex items-center justify-center gap-1.5 shrink-0"
-                >
-                  <HelpCircle className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Guide</span>
-                </button>
-              </div>
+              {/* Quick Jump / Guide helper button */}
+              <button
+                onClick={() => setIsGuideOpen(true)}
+                className="text-xs font-mono text-emerald-400 hover:text-emerald-300 px-3 py-1.5 rounded-lg bg-emerald-950/30 hover:bg-emerald-950/60 border border-emerald-500/30 transition flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
+              >
+                <HelpCircle className="w-3.5 h-3.5" />
+                <span>Analyst Guide</span>
+              </button>
             </div>
 
             {/* Overview Card (Visible in 'all' and 'summary') */}
@@ -376,33 +355,14 @@ export default function App() {
       {/* Footer */}
       <footer className="border-t border-slate-900 bg-slate-950 py-4 px-4 sm:px-6 lg:px-8 text-center text-xs font-mono text-slate-500">
         <p>
-          Wittgenstein Cyber Defense Agent • Built for the Hackers-Arise & OccupyTheWeb AI Defense Evaluation Review
+          Wittgenstein Cyber Defense Agent • Epistemic Zero-Hallucination SOC Platform
         </p>
         <p className="text-[11px] text-slate-600 mt-1">
-          Tractatus Logico-Philosophicus: &ldquo;The limits of my language mean the limits of my world.&rdquo;
+          Tractatus Logico-Philosophicus: &ldquo;Whereof one cannot speak, thereof one must be silent.&rdquo;
         </p>
       </footer>
 
-      {/* Modals */}
-      <SubmissionPackageModal
-        isOpen={isSubmissionOpen}
-        onClose={() => setIsSubmissionOpen(false)}
-        analysis={analysis}
-        auditEntries={auditEntries}
-      />
-
-      <TournamentAuditModal
-        isOpen={isAuditOpen}
-        onClose={() => setIsAuditOpen(false)}
-        analysis={analysis}
-        auditEntries={auditEntries}
-      />
-
-      <PythonExportModal
-        isOpen={isExportOpen}
-        onClose={() => setIsExportOpen(false)}
-      />
-
+      {/* Analyst Guide Modal */}
       <QuickStartGuideModal
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}

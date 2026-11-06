@@ -307,7 +307,7 @@ export function generateIncidentReportHtml(
     <div class="header">
       <div>
         <h1>INCIDENT RESPONSE & REMEDIATION REPORT</h1>
-        <div class="subtitle">Wittgenstein Epistemic AI Defense Agent • Tournament Audit Trail</div>
+        <div class="subtitle">Wittgenstein Epistemic AI Defense Agent • Forensic Audit Trail</div>
       </div>
       <div class="meta-badge">
         <div><span class="severity-pill">${severity} THREAT</span></div>

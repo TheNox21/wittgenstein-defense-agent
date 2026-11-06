@@ -40,14 +40,17 @@ export const WittgensteinTruthMeter: React.FC<WittgensteinTruthMeterProps> = ({
   };
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+    <div className="cyber-card reticle-corner rounded-xl p-5 space-y-4">
       {/* Header with Epistemic Score Indicator */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
           <BookOpen className="w-4 h-4 text-emerald-400" />
           <div>
-            <h3 className="text-sm font-semibold text-slate-200 font-mono tracking-wide">
-              ZERO-HALLUCINATION TRUTH ENGINE
+            <h3 className="text-sm font-semibold text-slate-200 font-mono tracking-wide flex items-center gap-2">
+              <span>ZERO-HALLUCINATION TRUTH ENGINE</span>
+              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded">
+                AXIOM §7 VERIFIED
+              </span>
             </h3>
             <p className="text-xs text-slate-400">
               Every defensive finding must have a corresponding log timestamp and verbatim string proof
@@ -59,27 +62,27 @@ export const WittgensteinTruthMeter: React.FC<WittgensteinTruthMeterProps> = ({
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setExpandedFactId(expandedFactId ? null : facts[0]?.id || null)}
-            className="text-xs font-mono text-slate-400 hover:text-slate-200 bg-slate-950 px-2.5 py-1 rounded border border-slate-800 transition"
+            className="text-xs font-mono text-slate-400 hover:text-slate-200 bg-slate-950 px-2.5 py-1 rounded border border-slate-800 hover:border-slate-700 transition cursor-pointer"
           >
             {expandedFactId ? 'Collapse Details' : 'Expand Details'}
           </button>
 
           {/* Progress bar visual */}
-          <div className="flex items-center gap-3 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 font-mono text-xs">
+          <div className="flex items-center gap-3 bg-slate-950/90 px-3 py-1.5 rounded-lg border border-slate-800 font-mono text-xs">
             <span className="text-slate-400">Certainty Index:</span>
             <div className="w-24 h-2 bg-slate-800 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"
                 style={{ width: `${overallScore}%` }}
               />
             </div>
-            <span className="font-bold text-emerald-400">{overallScore}%</span>
+            <span className="font-bold text-emerald-400 glow-emerald font-mono tabular-nums">{overallScore}%</span>
           </div>
         </div>
       </div>
 
       {/* Philosophical banner */}
-      <div className="bg-emerald-950/20 border border-emerald-500/20 rounded-lg p-3 text-xs font-mono text-emerald-300 flex items-start gap-2.5">
+      <div className="bg-emerald-950/20 border border-emerald-500/25 rounded-lg p-3 text-xs font-mono text-emerald-300 flex items-start gap-2.5 shadow-[inset_0_1px_1px_rgba(16,185,129,0.1)]">
         <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
         <div>
           <span className="font-semibold text-emerald-200">Axiom §7 Enforced:</span> &ldquo;Whereof one cannot speak, thereof one must be silent.&rdquo;

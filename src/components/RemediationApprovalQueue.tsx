@@ -139,7 +139,7 @@ export const RemediationApprovalQueue: React.FC<RemediationApprovalQueueProps> =
   }, [actions]);
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+    <div className="cyber-card reticle-corner rounded-xl p-5 space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
@@ -149,7 +149,7 @@ export const RemediationApprovalQueue: React.FC<RemediationApprovalQueueProps> =
               HUMAN-IN-THE-LOOP DEFENSIVE REMEDIATION QUEUE
             </h3>
             <p className="text-xs text-slate-400">
-              Tournament Rule Compliance: Strict analyst authorization gate required prior to command execution
+              Operational Security Protocol: Strict analyst authorization gate required prior to command execution
             </p>
           </div>
         </div>

@@ -84,7 +84,7 @@ export const ThreatHunterModule: React.FC<ThreatHunterModuleProps> = ({
   };
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+    <div className="cyber-card reticle-corner rounded-xl p-5 space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
@@ -92,7 +92,7 @@ export const ThreatHunterModule: React.FC<ThreatHunterModuleProps> = ({
           <div>
             <h3 className="text-sm font-semibold text-slate-200 font-mono tracking-wide flex items-center gap-2">
               <span>PROACTIVE THREAT HUNTER • LATERAL MOVEMENT PREDICTOR</span>
-              <span className="text-xs bg-emerald-950 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded-full font-bold">
+              <span className="text-xs bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded font-bold">
                 {huntQueries.length} Hunt Packages
               </span>
             </h3>
