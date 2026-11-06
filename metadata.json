@@ -1,0 +1,6 @@
+{
+  "name": "Wittgenstein Cyber Defense Agent",
+  "description": "An epistemic, zero-hallucination defensive AI agent for SOC triage, threat hunting, and human-authorized incident response built for the Hackers-Arise Wittgenstein AI Defense Evaluation Review.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
