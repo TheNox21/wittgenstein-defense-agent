@@ -3,6 +3,10 @@
 > **An Epistemic, Zero-Hallucination Defensive AI for SOC Telemetry Triage, Attack Progression Mapping, and Human-in-the-Loop Reversible Incident Response.**  
 > *Developed for the Hackers-Arise & OccupyTheWeb (OTW) AI Defense Evaluation.*
 
+<p align="center">
+  <img src="docs/images/dashboard_showcase.jpg" alt="Wittgenstein Cyber Defense Agent Operations Console" width="100%" style="border-radius: 10px; border: 1px solid #1e293b;" />
+</p>
+
 ---
 
 ## 📋 Executive Overview & Submission Summary

@@ -6,6 +6,10 @@
 > **Code Repository**: [https://github.com/TheNox21/wittgenstein-defense-agent](https://github.com/TheNox21/wittgenstein-defense-agent)  
 > **Demonstration Video**: [https://youtu.be/DEMO_VIDEO_ID](https://youtu.be/DEMO_VIDEO_ID) *(Under 10 minutes)*
 
+<p align="center">
+  <img src="docs/images/dashboard_showcase.jpg" alt="Wittgenstein Cyber Defense Agent Operations Console" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" />
+</p>
+
 ---
 
 ## 1. Executive Summary & Problem Statement
