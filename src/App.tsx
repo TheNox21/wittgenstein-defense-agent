@@ -10,6 +10,7 @@ import { ThreatHunterModule } from './components/ThreatHunterModule';
 import { RemediationApprovalQueue } from './components/RemediationApprovalQueue';
 import { ActionAuditTrail } from './components/ActionAuditTrail';
 import { QuickStartGuideModal } from './components/QuickStartGuideModal';
+import { CockpitHudView } from './components/CockpitHudView';
 import { SAMPLE_TELEMETRY } from './data/sampleLogs';
 import { TriageAnalysis, RemediationAction, SampleTelemetry, AuditTrailEntry } from './types';
 import {
@@ -23,7 +24,8 @@ import {
   History,
   HelpCircle,
   Eye,
-  SlidersHorizontal
+  SlidersHorizontal,
+  LayoutDashboard
 } from 'lucide-react';
 
 export default function App() {
@@ -33,7 +35,7 @@ export default function App() {
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [analysis, setAnalysis] = useState<TriageAnalysis | null>(null);
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'all' | 'summary' | 'graph' | 'hunter' | 'remediation'>('all');
+  const [activeTab, setActiveTab] = useState<'cockpit' | 'all' | 'summary' | 'graph' | 'hunter' | 'remediation'>('cockpit');
   const [isExecutingAction, setIsExecutingAction] = useState<string | null>(null);
   const [isRollingBack, setIsRollingBack] = useState<string | null>(null);
 
@@ -211,74 +213,96 @@ export default function App() {
         onModeChange={handleModeChange}
         onOpenGuide={() => setIsGuideOpen(true)}
         isAnalyzing={isAnalyzing}
+        truthScore={analysis?.epistemicTruthScore ?? 100}
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <main className="flex-1 max-w-[1700px] w-full mx-auto px-3 sm:px-6 py-4 space-y-4">
         
-        {/* Telemetry Input Panel */}
-        <TelemetryIngestion
-          telemetry={telemetry}
-          onTelemetryChange={setTelemetry}
-          onRunTriage={() => executeTriage(telemetry, engineMode)}
-          isAnalyzing={isAnalyzing}
-          selectedSampleId={selectedSample.id}
-          onSelectSample={handleSelectSample}
-        />
-
-        {/* Triage Results View */}
+        {/* Navigation Tabs Bar */}
         {analysis && (
-          <div className="space-y-6">
-            
-            {/* View Mode Navigation Tabs to reduce cognitive overload */}
-            <div className="cyber-card rounded-xl p-2 sm:p-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 shadow-sm">
-              <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
-                {[
-                  { id: 'all', label: 'All Modules', icon: Layers, count: null },
-                  { id: 'summary', label: 'Triage & Truth', icon: Activity, count: `${analysis.epistemicTruthScore}%` },
-                  { id: 'graph', label: 'Attack Topology', icon: Network, count: `${analysis.mitreTechniques.length + analysis.iocs.length}` },
-                  { id: 'hunter', label: 'Threat Hunter', icon: Crosshair, count: '5' },
-                  { id: 'remediation', label: 'Remediation & Audit', icon: ShieldAlert, count: analysis.actions.filter(a => a.status === 'PENDING_APPROVAL').length || null }
-                ].map((tab) => {
-                  const Icon = tab.icon;
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id as any)}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition shrink-0 cursor-pointer ${
-                        isActive
-                          ? 'bg-emerald-600/90 text-white font-semibold shadow-[0_0_12px_rgba(16,185,129,0.3)] border border-emerald-400/50'
-                          : 'bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800/80 hover:border-slate-700'
-                      }`}
-                    >
-                      <Icon className="w-3.5 h-3.5" />
-                      <span>{tab.label}</span>
-                      {tab.count !== null && (
-                        <span
-                          className={`text-[10px] px-1.5 py-0.2 rounded font-mono font-bold ${
-                            isActive
-                              ? 'bg-emerald-800 text-emerald-100'
-                              : 'bg-slate-800 text-slate-400'
-                          }`}
-                        >
-                          {tab.count}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Quick Jump / Guide helper button */}
-              <button
-                onClick={() => setIsGuideOpen(true)}
-                className="text-xs font-mono text-emerald-400 hover:text-emerald-300 px-3 py-1.5 rounded-lg bg-emerald-950/30 hover:bg-emerald-950/60 border border-emerald-500/30 transition flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
-              >
-                <HelpCircle className="w-3.5 h-3.5" />
-                <span>Analyst Guide</span>
-              </button>
+          <div className="cyber-card rounded-xl p-2 sm:p-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 shadow-sm">
+            <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
+              {[
+                { id: 'cockpit', label: 'Tactical Cockpit (HUD)', icon: LayoutDashboard, count: 'LIVE' },
+                { id: 'summary', label: 'Triage & Truth', icon: Activity, count: `${analysis.epistemicTruthScore}%` },
+                { id: 'hunter', label: 'Threat Hunter', icon: Crosshair, count: '5' },
+                { id: 'graph', label: 'Attack Topology', icon: Network, count: `${analysis.mitreTechniques.length + analysis.iocs.length}` },
+                { id: 'remediation', label: 'Remediation & Audit', icon: ShieldAlert, count: analysis.actions.filter(a => a.status === 'PENDING_APPROVAL').length || null },
+                { id: 'all', label: 'All Modules', icon: Layers, count: null }
+              ].map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition shrink-0 cursor-pointer ${
+                      isActive
+                        ? 'bg-emerald-600/90 text-white font-semibold shadow-[0_0_12px_rgba(16,185,129,0.3)] border border-emerald-400/50'
+                        : 'bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800/80 hover:border-slate-700'
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                    <span>{tab.label}</span>
+                    {tab.count !== null && (
+                      <span
+                        className={`text-[10px] px-1.5 py-0.2 rounded font-mono font-bold ${
+                          isActive
+                            ? 'bg-emerald-800 text-emerald-100'
+                            : 'bg-slate-800 text-slate-400'
+                        }`}
+                      >
+                        {tab.count}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
+
+            {/* Quick Jump / Guide helper button */}
+            <button
+              onClick={() => setIsGuideOpen(true)}
+              className="text-xs font-mono text-emerald-400 hover:text-emerald-300 px-3 py-1.5 rounded-lg bg-emerald-950/30 hover:bg-emerald-950/60 border border-emerald-500/30 transition flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
+            >
+              <HelpCircle className="w-3.5 h-3.5" />
+              <span>Analyst Guide</span>
+            </button>
+          </div>
+        )}
+
+        {/* View 1: Tactical Cockpit HUD View (Matches the Screenshot 1:1) */}
+        {analysis && activeTab === 'cockpit' && (
+          <CockpitHudView
+            analysis={analysis}
+            telemetry={telemetry}
+            onTelemetryChange={setTelemetry}
+            onRunTriage={() => executeTriage(telemetry, engineMode)}
+            isAnalyzing={isAnalyzing}
+            selectedSampleId={selectedSample.id}
+            onSelectSample={handleSelectSample}
+            onAuthorizeAction={handleAuthorizeAction}
+            onRejectAction={handleRejectAction}
+            isExecutingAction={isExecutingAction}
+          />
+        )}
+
+        {/* View 2: Modular Tab Views (Telemetry Input + Selected Module) */}
+        {activeTab !== 'cockpit' && (
+          <TelemetryIngestion
+            telemetry={telemetry}
+            onTelemetryChange={setTelemetry}
+            onRunTriage={() => executeTriage(telemetry, engineMode)}
+            isAnalyzing={isAnalyzing}
+            selectedSampleId={selectedSample.id}
+            onSelectSample={handleSelectSample}
+          />
+        )}
+
+        {/* Modular Views Content */}
+        {analysis && activeTab !== 'cockpit' && (
+          <div className="space-y-6">
 
             {/* Overview Card (Visible in 'all' and 'summary') */}
             {(activeTab === 'all' || activeTab === 'summary') && (
